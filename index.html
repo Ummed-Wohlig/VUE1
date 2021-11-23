@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title> Vue 3 Basics </title>
+        <style>
+            .box {
+                background-color: red;
+                height: 300px;
+                width: 300px;
+            }
+
+            .box.two {
+                background-color: black;
+            }
+
+            .box.three {
+                background-color: green;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app" v-cloak>
+            {{ greeting1 }}
+            <!-- <input v-model=" greeting " /><br><br> -->
+            <input @keyup.enter="greet" v-model=" greeting1" />"
+            <!-- .enter is event modifier in VUE js  so here you are not only listening to @keyup event but you are listening to enter key -->
+            <!-- {{}} is use  to use the variables in vue.js 
+            anything parsed in between these {{}} will be parsed as a java script by vue-->
+
+            <hr />
+            <button v-on:click="isVisible= !isVisible"> ToggleBox using v-on </button> &nbsp; &nbsp; &nbsp; &nbsp;
+            <button @click="isVisible= !isVisible"> ToggleBox using @ </button> <br> <br> <br>
+            <button @click="toggleBox"> ToggleBox using VUE.js Objects </button> <br> <br> <br>
+            <button @click.right="toggleBox"> Only works when right click is done </button> <br> <br> <br>
+            <button @click.prevent.stop="toggleBox"> when you want to prevent the form to submit </button>
+
+
+
+            <div>
+                <h3> Both thing Work same </h3>
+            </div>
+            <!-- This is short hand for not typing v-on you just have to type @ and then the event Name  -->
+            <div v-if="isVisible" class="box"> </div>
+            <div v-else-if="isVisible2" class="box two"> </div>
+            <div v-else class="box three"> </div>
+            <!-- v-if is very similar to v-show directive -->
+
+        </div>
+
+        <script src="https://unpkg.com/vue@next"> </script>
+        <script>
+            let app = Vue.createApp({ //this is call as option obejct anything we want to add to website come inside this option object
+                data: function () {
+                    return {
+                        greeting: ' This is from VUE variable Now',// this is variable
+                        //to use a variable in vue u need to use double {{}} and  name of variable inside it.
+                        greeting1: ' This Greeting is made for @ keyup function',
+                        isVisible: true,
+                        isVisible2: false,
+
+                    }
+                },
+                methods: {
+                    toggleBox() { // toggleBox method is created for button which is using toggleBox method to change the visibility of the box.
+                        this.isVisible = !this.isVisible
+                    },
+                    greet() {
+                        console.log(this.greeting1)
+                    }
+                }
+            })
+            app.mount('#app') // this mount fuction will help to mount vue component in the HTML Div
+        </script>
+
+    </body>
+
+</html>

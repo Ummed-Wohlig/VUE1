@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title> Vue 3 Basics </title>
+        <style>
+            .box {
+                background-color: red;
+                height: 300px;
+                width: 300px;
+            }
+
+            .box.two {
+                background-color: black;
+            }
+
+            .box.three {
+                background-color: green;
+            }
+
+            [v-cloak] {
+                display: none;
+            }
+
+            input {
+                margin: 20px;
+                display: block;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app" v-cloak>
+            <login-form />
+
+            <hr />
+
+            <button @click.prevent.stop="toggleBox"> Toggle Box</button>
+            <div v-if="isVisible" class="box"> </div>
+        </div>
+
+        <script src="https://unpkg.com/vue@next"> </script>
+        <script>
+            let app = Vue.createApp({
+                data: function () {
+                    return {
+                        greeting: ' This is from VUE variable Now',
+
+                        greeting1: ' This Greeting is made for @ keyup function',
+                        isVisible: true,
+                        isVisible2: false,
+
+                    }
+                },
+                methods: {
+                    toggleBox() {
+                        this.isVisible = !this.isVisible
+                    },
+                    greet() {
+                        console.log(this.greeting1)
+                    }
+                }
+            })
+
+            app.component('login-form', {
+                template: `
+                <form @submit.prevent="handleSubmit">
+                <h1> {{ title }} </h1> 
+                <input type="email" v-model="email" />    
+                <input type="password" v-model="password" />
+                <button> Log in </button>
+                </form>
+            `,
+
+                data() {
+                    return {
+                        title: 'Login Form',
+                        email: '',
+                        password: ''
+                    }
+                },
+                methods: {
+                    handleSubmit() {
+                        // e.preventDefault() // if u dont want to do this you can simply add .prevent  like <form @submit.prevent="handleSubmit">
+                        console.log(this.email, this.password)
+                    }
+                }
+            })
+
+
+            app.mount('#app')
+        </script>
+
+    </body>
+
+</html>
